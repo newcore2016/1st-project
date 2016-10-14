@@ -14,6 +14,7 @@
 		11EF8D461DAF4F5D00BA2643 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EF8D441DAF4F5D00BA2643 /* LaunchScreen.storyboard */; };
 		11EF8D4E1DAF507700BA2643 /* won.wav in Resources */ = {isa = PBXBuildFile; fileRef = 11EF8D4D1DAF507700BA2643 /* won.wav */; };
 		11EF8D501DAF507D00BA2643 /* switch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 11EF8D4F1DAF507D00BA2643 /* switch.wav */; };
+		11EF8D561DAF5C2700BA2643 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF8D551DAF5C2700BA2643 /* MenuVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		11EF8D471DAF4F5D00BA2643 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11EF8D4D1DAF507700BA2643 /* won.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = won.wav; sourceTree = "<group>"; };
 		11EF8D4F1DAF507D00BA2643 /* switch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = switch.wav; sourceTree = "<group>"; };
+		11EF8D551DAF5C2700BA2643 /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				11EF8D421DAF4F5D00BA2643 /* Assets.xcassets */,
 				11EF8D441DAF4F5D00BA2643 /* LaunchScreen.storyboard */,
 				11EF8D471DAF4F5D00BA2643 /* Info.plist */,
+				11EF8D551DAF5C2700BA2643 /* MenuVC.swift */,
 			);
 			path = firstProject;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 			files = (
 				11EF8D3E1DAF4F5D00BA2643 /* GameBoardVC.swift in Sources */,
 				11EF8D3C1DAF4F5D00BA2643 /* AppDelegate.swift in Sources */,
+				11EF8D561DAF5C2700BA2643 /* MenuVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

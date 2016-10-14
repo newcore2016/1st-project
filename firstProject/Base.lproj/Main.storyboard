@@ -1,11 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8KX-Rr-dgJ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--MenuVC-->
+        <scene sceneID="SJy-ji-Jg0">
+            <objects>
+                <viewController id="8KX-Rr-dgJ" customClass="MenuVC" customModule="firstProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3KV-xZ-t3Q"/>
+                        <viewControllerLayoutGuide type="bottom" id="rb0-Hu-6Oh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E5Z-tR-6uc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABC Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHe-eU-hVo">
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FuD-2p-VVM">
+                                <segments>
+                                    <segment title="Dễ"/>
+                                    <segment title="Trung bình"/>
+                                    <segment title="Khó"/>
+                                    <segment title="Cực khó"/>
+                                </segments>
+                            </segmentedControl>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img01" translatesAutoresizingMaskIntoConstraints="NO" id="Kq0-iR-Pgc">
+                                <color key="backgroundColor" red="1" green="0.33982092672626441" blue="0.33287238840409583" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="aHd-KH-YdH"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1o-RS-TkM">
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Chọn hình"/>
+                                <connections>
+                                    <action selector="selectBtnPressed:" destination="8KX-Rr-dgJ" eventType="touchUpInside" id="Rd2-lj-yQd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYc-cc-sdR">
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Bắt đầu"/>
+                                <connections>
+                                    <action selector="playBtnPressed:" destination="8KX-Rr-dgJ" eventType="touchUpInside" id="TeT-Tj-gxd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97517179109999996" green="1" blue="0.51831879749999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="PHe-eU-hVo" firstAttribute="centerX" secondItem="E5Z-tR-6uc" secondAttribute="centerX" id="6y1-gB-pdG"/>
+                            <constraint firstItem="FuD-2p-VVM" firstAttribute="top" secondItem="PHe-eU-hVo" secondAttribute="bottom" constant="20" id="A7t-R5-shE"/>
+                            <constraint firstItem="gYc-cc-sdR" firstAttribute="centerX" secondItem="E5Z-tR-6uc" secondAttribute="centerX" id="AXB-nL-qXe"/>
+                            <constraint firstItem="gYc-cc-sdR" firstAttribute="top" secondItem="Kq0-iR-Pgc" secondAttribute="bottom" constant="30" id="C2V-Ff-T0G"/>
+                            <constraint firstItem="Kq0-iR-Pgc" firstAttribute="leading" secondItem="E5Z-tR-6uc" secondAttribute="leading" constant="10" id="F8d-gJ-AOR"/>
+                            <constraint firstItem="FuD-2p-VVM" firstAttribute="leading" secondItem="E5Z-tR-6uc" secondAttribute="leadingMargin" id="JL1-nE-bcB"/>
+                            <constraint firstItem="Kq0-iR-Pgc" firstAttribute="centerX" secondItem="E5Z-tR-6uc" secondAttribute="centerX" id="RqD-Ci-gEX"/>
+                            <constraint firstItem="Z1o-RS-TkM" firstAttribute="leading" secondItem="E5Z-tR-6uc" secondAttribute="leadingMargin" constant="10" id="TTQ-vD-dSE"/>
+                            <constraint firstAttribute="trailing" secondItem="Kq0-iR-Pgc" secondAttribute="trailing" constant="10" id="fwk-DE-3Bx"/>
+                            <constraint firstItem="Kq0-iR-Pgc" firstAttribute="top" secondItem="Z1o-RS-TkM" secondAttribute="bottom" constant="20" id="iBy-bA-aJA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FuD-2p-VVM" secondAttribute="trailing" id="l09-Nq-ueK"/>
+                            <constraint firstItem="PHe-eU-hVo" firstAttribute="top" secondItem="3KV-xZ-t3Q" secondAttribute="bottom" constant="20" id="npF-c9-qP5"/>
+                            <constraint firstItem="Z1o-RS-TkM" firstAttribute="top" secondItem="FuD-2p-VVM" secondAttribute="bottom" constant="20" id="v2v-l5-cjX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="levelSeg" destination="FuD-2p-VVM" id="ggE-HP-If2"/>
+                        <outlet property="playBtn" destination="gYc-cc-sdR" id="m2h-Ab-YIB"/>
+                        <outlet property="selectBtn" destination="Z1o-RS-TkM" id="VhQ-cQ-VzP"/>
+                        <outlet property="selectedImage" destination="Kq0-iR-Pgc" id="43r-rh-p4Q"/>
+                        <segue destination="BYZ-38-t0r" kind="showDetail" identifier="GameBoardVC" id="QDa-DH-eVn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2WU-T5-Zeq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="35.532233883058474"/>
+        </scene>
         <!--Game BoardVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -17,11 +93,26 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIl-Dl-DSS">
+                                <frame key="frameInset" minY="20" width="75" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Quay lại"/>
+                                <connections>
+                                    <action selector="backBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xdb-CZ-uVo"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="885.60000000000002" y="35.532233883058474"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="img01" width="248" height="203"/>
+    </resources>
 </document>
