@@ -37,6 +37,8 @@ class GameBoardVC: UIViewController {
     
     var isFirstTap = true
     
+    var imageInfo: Image!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

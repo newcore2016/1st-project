@@ -8,75 +8,107 @@
 
 import UIKit
 
-class MenuVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    @IBOutlet weak var playBtn: UIButton!
+class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var levelSeg: UISegmentedControl!
+    @IBOutlet weak var imageListTV: UITableView!
     
-    @IBOutlet weak var selectedImage: UIImageView!
+    var catalogueID: String!
+    var catalogueName: String!
     
-    @IBOutlet weak var selectBtn: UIButton!
+    var selectedLevel: Int!
     
-    let imagePicker = UIImagePickerController()
+    var imageList: [Image]!
     
-    var info = [String:Any]()
+    var imageInfo: Image!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageList = loadImageList()
         
-        imagePicker.delegate = self
-
-
-        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return imageList.count
     }
     
-    // select image button pressed
-    @IBAction func selectBtnPressed(_ sender: AnyObject) {
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            selectedImage.contentMode = .scaleAspectFit
-            selectedImage.image = pickedImage
-        } else {
-            print("Something went wrong")
-        }
-        
-        dismiss(animated: true, completion: nil)
-    }
-
-    // play button pressed
-    @IBAction func playBtnPressed(_ sender: AnyObject) {
-        info["level"] = levelSeg.selectedSegmentIndex
-        info["image"] = selectedImage.image
-        performSegue(withIdentifier: "GameBoardVC", sender: info)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.imageListTV.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as! ImageCell
+        cell.imageV.image = UIImage(named: imageList[indexPath.row].id)
+        cell.nameLab.text = "\(indexPath.row+1). \(imageList[indexPath.row].name!)"
+        cell.imageInfo = imageList[indexPath.row]
+        cell.level1Btn.tag = indexPath.row
+        cell.level2Btn.tag = indexPath.row
+        cell.level3Btn.tag = indexPath.row
+        cell.level4Btn.tag = indexPath.row
+        cell.level1Btn.addTarget(self, action: #selector(self.level1Btn), for: .touchUpInside)
+        cell.level2Btn.addTarget(self, action: #selector(self.level2Btn), for: .touchUpInside)
+        cell.level3Btn.addTarget(self, action: #selector(self.level3Btn), for: .touchUpInside)
+        cell.level4Btn.addTarget(self, action: #selector(self.level4Btn), for: .touchUpInside)
+        return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? GameBoardVC {
-            destination.image = info["image"] as! UIImage!
-            destination.rowNo = levelSeg.selectedSegmentIndex + 2
-            destination.colNo = levelSeg.selectedSegmentIndex + 2
+            destination.image = UIImage(named: imageInfo.id)
+            destination.colNo = selectedLevel + 1
+            destination.rowNo = selectedLevel + 1
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func level1Btn(sender: UIButton) {
+        imageInfo = imageList[sender.tag]
+        selectedLevel = 1
+        performSegue(withIdentifier: "GameBoardVC", sender: self)
     }
-    */
+    
+    func level2Btn(sender: UIButton) {
+        imageInfo = imageList[sender.tag]
+        selectedLevel = 2
+        performSegue(withIdentifier: "GameBoardVC", sender: self)
+    }
+    
+    func level3Btn(sender: UIButton) {
+        imageInfo = imageList[sender.tag]
+        selectedLevel = 3
+        performSegue(withIdentifier: "GameBoardVC", sender: self)
+    }
+    
+    func level4Btn(sender: UIButton) {
+        imageInfo = imageList[sender.tag]
+        selectedLevel = 4
+        performSegue(withIdentifier: "GameBoardVC", sender: self)
+    }
 
+    
+    func loadImageList() -> [Image] {
+        var images = [Image]()
+        // -- TODO load from database
+        for i in 1...10 {
+            let image = Image()
+            image.id = "img\(i)"
+            image.name = "Image \(i)"
+            image.catalogueID = catalogueID
+            images.append(image)
+        }
+        return images
+    }
+    
+}
+
+class Image {
+    var id: String!
+    var fileName: String!
+    var name: String!
+    var catalogueID: String!
+}
+
+class UserImageInfo {
+    var userID: String!
+    var imageID: String!
+    var time: Int!
+    var moves: Int!
+    var point: Int!
+    
 }

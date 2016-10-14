@@ -15,6 +15,9 @@
 		11EF8D4E1DAF507700BA2643 /* won.wav in Resources */ = {isa = PBXBuildFile; fileRef = 11EF8D4D1DAF507700BA2643 /* won.wav */; };
 		11EF8D501DAF507D00BA2643 /* switch.wav in Resources */ = {isa = PBXBuildFile; fileRef = 11EF8D4F1DAF507D00BA2643 /* switch.wav */; };
 		11EF8D561DAF5C2700BA2643 /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF8D551DAF5C2700BA2643 /* MenuVC.swift */; };
+		11F121A71DB08CA3007C67BA /* ListMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F121A61DB08CA3007C67BA /* ListMenuVC.swift */; };
+		11F121A91DB08F49007C67BA /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F121A81DB08F49007C67BA /* MenuCell.swift */; };
+		11F121AB1DB0ACD5007C67BA /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F121AA1DB0ACD5007C67BA /* ImageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		11EF8D4D1DAF507700BA2643 /* won.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = won.wav; sourceTree = "<group>"; };
 		11EF8D4F1DAF507D00BA2643 /* switch.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = switch.wav; sourceTree = "<group>"; };
 		11EF8D551DAF5C2700BA2643 /* MenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
+		11F121A61DB08CA3007C67BA /* ListMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMenuVC.swift; sourceTree = "<group>"; };
+		11F121A81DB08F49007C67BA /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
+		11F121AA1DB0ACD5007C67BA /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,9 @@
 				11EF8D441DAF4F5D00BA2643 /* LaunchScreen.storyboard */,
 				11EF8D471DAF4F5D00BA2643 /* Info.plist */,
 				11EF8D551DAF5C2700BA2643 /* MenuVC.swift */,
+				11F121A61DB08CA3007C67BA /* ListMenuVC.swift */,
+				11F121A81DB08F49007C67BA /* MenuCell.swift */,
+				11F121AA1DB0ACD5007C67BA /* ImageCell.swift */,
 			);
 			path = firstProject;
 			sourceTree = "<group>";
@@ -148,8 +157,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				11EF8D3E1DAF4F5D00BA2643 /* GameBoardVC.swift in Sources */,
+				11F121A91DB08F49007C67BA /* MenuCell.swift in Sources */,
+				11F121A71DB08CA3007C67BA /* ListMenuVC.swift in Sources */,
 				11EF8D3C1DAF4F5D00BA2643 /* AppDelegate.swift in Sources */,
 				11EF8D561DAF5C2700BA2643 /* MenuVC.swift in Sources */,
+				11F121AB1DB0ACD5007C67BA /* ImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +323,7 @@
 				11EF8D4C1DAF4F5D00BA2643 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
