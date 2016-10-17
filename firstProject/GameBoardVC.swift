@@ -8,54 +8,89 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
 class GameBoardVC: UIViewController {
-    
+
     var cellGameArray = Array<Array<CellGame>>()
     
-    var colNo: Int!
+    var colNo = 2 // default column number
     
-    var rowNo: Int!
+    var rowNo = 2 // default row number
     
-    var image: UIImage!
+    var image =  UIImage() // current playing image
     
     var boardGame = UIView()
     
-    var isSecondClick = false
+    var isSecondClick = false // check if there is second click
     
-    var previousCell : CellGame?
+    var previousCell : CellGame! // store previous cliked cell info
     
-    var switchSound: AVAudioPlayer!
+    var switchSound: AVAudioPlayer! // sound of switching tiles
     
-    var winningSound: AVAudioPlayer!
+    var winningSound: AVAudioPlayer! // winning sound
     
-    let timeLabel = UILabel()
+    let timeLabel = UILabel() // time counter label
     
-    var seconds = 0
+    var seconds = 0 // time on second
     
-    var timer = Timer()
+    var timer = Timer() // timer object
     
-    var isFirstTap = true
+    var isFirstTap = true // check if first tab to active timer
     
-    var imageInfo: Image!
+    // ------New feature: Random photo from list-----------------
+    var playMode = 0 // 0: Tính giờ, 1: Không tính giờ
+    var playLevel = 0 // 0: Dễ, 1: Khó
     
+    var catalogue: Catalogue!
+    var unsolvedImageList:[Image]!
+    var solvedImageList = [Image]()
+    var doingImage: Image!
+    let numUpLevel = 3 // Number of solved images to increase level
+    var upLevelTimes = 1 // Number of times of leveling
+    //------------------------------------------------------------
+    
+    let imageView = UIImageView() // UIImange for reference original image
+    
+    func getImageListFromCatalogue(){
+        // -- TODO load from database
+//        for img in catalogue.toImage! {
+//            images.append(img as! Image)
+//        }
+        do {
+            let fetchRequest: NSFetchRequest<Image> = Image.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "toCatalogue == %@", catalogue)
+            let sort = NSSortDescriptor(key: "name", ascending: true)
+            fetchRequest.sortDescriptors = [sort]
+            unsolvedImageList = try context.fetch(fetchRequest)
+        } catch {
+            fatalError("Failed")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // -----Test---------
-//        photoName = "img01"
-//        rowNo = 3
-//        colNo = 3
-        //-------------------
-        self.cellGameArray = Array(repeating: Array(repeating : CellGame(), count: rowNo), count: colNo)
+        // Easy level
+        if playLevel == 0 {
+            colNo = 2
+            rowNo = 2
+        } else {
+            // hard level
+            colNo = 4
+            rowNo = 4
+        }
+        // ------New feature: Random photo from list-----------------
+        // load image list TODO
+        getImageListFromCatalogue()
+        let randomIndex = random(max: unsolvedImageList.count)
+        doingImage = unsolvedImageList.remove(at: randomIndex) 
+        image = UIImage(named: doingImage.fileName!)!
+        // ----------------------------------------------------------
         self.boardGame.isUserInteractionEnabled = true
         self.view.backgroundColor = UIColor.cyan
         // reference original photo view
         let firstFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width-20 , height: (UIScreen.main.bounds.height - 30 ) / 2)
-        let imageView = UIImageView()
         imageView.frame = CGRect(x: UIScreen.main.bounds.width/4, y: 60 , width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height / 4)
-//        let image = UIImage(named: photoName!)
-        imageView.image = image
         self.view.addSubview(imageView)
         timeLabel.text = "0"
         print(timeLabel.font.fontName)
@@ -86,7 +121,7 @@ class GameBoardVC: UIViewController {
         } catch(let err as NSError) {
             print(err.debugDescription)
         }
-        playWinningSound()
+        playWinningSound() // FIXME change to welcome sound
         
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -127,9 +162,19 @@ class GameBoardVC: UIViewController {
                 cell.cellImage?.image = imageTmp
                 // play switch pies sound
                 playSwitchSound()
+                // check complete
                 if(checkComplete() == true) {
-                    playWinningSound()
-                    stopTimer()
+                    solvedImageList.append(doingImage)
+                    if unsolvedImageList.count != 0 {
+                        let randomIndex = random(max: unsolvedImageList.count)
+                        doingImage = unsolvedImageList.remove(at: randomIndex)
+                        image = UIImage(named: doingImage.fileName!)!
+                        makeGameBoard()
+                        playWinningSound()
+                    } else {
+                        playWinningSound()
+                        stopTimer()
+                    }
                 }
             }
             previousCell?.cellImage?.layer.opacity = 1
@@ -151,8 +196,8 @@ class GameBoardVC: UIViewController {
     
     // check if the game board is completed
     func checkComplete() -> Bool {
-        for i in 0..<colNo! {
-            for j in 0..<rowNo! {
+        for i in 0..<colNo {
+            for j in 0..<rowNo {
                 if(!(cellGameArray[i][j].x == cellGameArray[i][j].tobeX && cellGameArray[i][j].y == cellGameArray[i][j].tobeY)) {
                     return false
                 }
@@ -163,19 +208,35 @@ class GameBoardVC: UIViewController {
     
     // create game board
     func makeGameBoard(){
+        imageView.image = image
         boardGame.frame = CGRect(x: 10, y: UIScreen.main.bounds.height/2 - 30, width: UIScreen.main.bounds.width-20 , height: (UIScreen.main.bounds.height)/2)
-//        let image = UIImage(named: photoName!)
-        for i in 1...colNo! {
-            for j in 1...rowNo! {
+        // remeove old tiles from board
+        for view in boardGame.subviews {
+            view.removeFromSuperview()
+        }
+        // TODO setting row and col number based on mode and number of solved photo
+        // Mode Tính giờ
+        if playMode == 0 {
+            // TODO
+        } else {
+            // Mode không tính giờ
+            // if player has solved more than specified x pics, increase level
+            if solvedImageList.count > (numUpLevel * upLevelTimes) {
+                if colNo > rowNo {
+                    rowNo = rowNo + 1
+                } else {
+                    colNo = colNo + 1
+                }
+                upLevelTimes = upLevelTimes + 1
+            }
+        }
+        cellGameArray = Array(repeating: Array(repeating : CellGame(), count: rowNo), count: colNo)
+        // create tiles
+        for i in 1...colNo {
+            for j in 1...rowNo {
                 let tmpImageView = UIImageView()
-                tmpImageView.frame = CGRect(x: CGFloat(i - 1) * (boardGame.frame.width / CGFloat(colNo!)) , y: CGFloat(j - 1) * (boardGame.frame.height / CGFloat(rowNo!)), width: boardGame.frame.width / CGFloat(colNo!), height: boardGame.frame.height / CGFloat(rowNo!))
-                //                print(tmpImageView.frame.minX)
-                //                print(tmpImageView.frame.minY)
-                //                print(tmpImageView.frame.maxX)
-                //                print(tmpImageView.frame.maxY)
-                let tmpImage = image?.splitImage(rowNo: CGFloat(rowNo!), colNo: CGFloat(colNo!), xOrder: CGFloat(i-1), yOrder: CGFloat(j-1))
-                //                print(tmpImage?.size.width)
-                //                print(tmpImage?.size.height)
+                tmpImageView.frame = CGRect(x: CGFloat(i - 1) * (boardGame.frame.width / CGFloat(colNo)) , y: CGFloat(j - 1) * (boardGame.frame.height / CGFloat(rowNo)), width: boardGame.frame.width / CGFloat(colNo), height: boardGame.frame.height / CGFloat(rowNo))
+                let tmpImage = image.splitImage(rowNo: CGFloat(rowNo), colNo: CGFloat(colNo), xOrder: CGFloat(i-1), yOrder: CGFloat(j-1))
                 tmpImageView.image = tmpImage
                 let cellGame = CellGame()
                 cellGame.x = i
@@ -200,6 +261,7 @@ class GameBoardVC: UIViewController {
         // random cells
         mixingCells(times: 1)
     }
+    
     func random(max: Int) -> Int {
         let randomNum:UInt32 = arc4random_uniform(UInt32(max)) // range is 0 to max - 1
         return Int(randomNum)
