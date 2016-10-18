@@ -30,13 +30,13 @@ class GameBoardVC: UIViewController {
     
     var winningSound: AVAudioPlayer! // winning sound
     
-    let timeLabel = UILabel() // time counter label
-    
-    var seconds = 0 // time on second
+    var seconds:Float = 0.0 // time on second
     
     var timer = Timer() // timer object
     
     var isFirstTap = true // check if first tab to active timer
+    
+    let timerBar = UIProgressView()
     
     // ------New feature: Random photo from list-----------------
     var playMode = 0 // 0: Tính giờ, 1: Không tính giờ
@@ -48,6 +48,7 @@ class GameBoardVC: UIViewController {
     var doingImage: Image!
     let numUpLevel = 3 // Number of solved images to increase level
     var upLevelTimes = 1 // Number of times of leveling
+    let timeLimit:Float = 10 // seconds
     //------------------------------------------------------------
     
     let imageView = UIImageView() // UIImange for reference original image
@@ -89,17 +90,8 @@ class GameBoardVC: UIViewController {
         self.boardGame.isUserInteractionEnabled = true
         self.view.backgroundColor = UIColor.cyan
         // reference original photo view
-        let firstFrame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width-20 , height: (UIScreen.main.bounds.height - 30 ) / 2)
         imageView.frame = CGRect(x: UIScreen.main.bounds.width/4, y: 60 , width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height / 4)
         self.view.addSubview(imageView)
-        timeLabel.text = "0"
-        print(timeLabel.font.fontName)
-        timeLabel.font = UIFont(name: timeLabel.font.fontName, size: 30)
-        timeLabel.frame = CGRect(x: 0, y: UIScreen.main.bounds.height/2 - 90 , width: firstFrame.width, height: 40)
-        timeLabel.textAlignment = .center
-        timeLabel.adjustsFontSizeToFitWidth = true
-        timeLabel.textColor = UIColor.red
-        self.view.addSubview(timeLabel)
         makeGameBoard()
         self.view.addSubview(boardGame)
         // --------- TODO ----------
@@ -208,13 +200,18 @@ class GameBoardVC: UIViewController {
     
     // create game board
     func makeGameBoard(){
+        // timer progress bar
+        timerBar.progressImage = UIImage(named: "progressBar")
+        timerBar.frame = CGRect(x: 0, y: UIScreen.main.bounds.height/2 - 40, width: UIScreen.main.bounds.width, height: 20)
+        self.view.addSubview(timerBar)
+        // end - timer progress bar
         imageView.image = image
         boardGame.frame = CGRect(x: 10, y: UIScreen.main.bounds.height/2 - 30, width: UIScreen.main.bounds.width-20 , height: (UIScreen.main.bounds.height)/2)
         // remeove old tiles from board
         for view in boardGame.subviews {
             view.removeFromSuperview()
         }
-        // TODO setting row and col number based on mode and number of solved photo
+        // setting row and col number based on mode and number of solved photo
         // Mode Tính giờ
         if playMode == 0 {
             // TODO
@@ -259,11 +256,12 @@ class GameBoardVC: UIViewController {
             }
         }
         // random cells
-        mixingCells(times: 1)
+        mixingCells(times: 5)
     }
     
     func random(max: Int) -> Int {
         let randomNum:UInt32 = arc4random_uniform(UInt32(max)) // range is 0 to max - 1
+        print(randomNum)
         return Int(randomNum)
     }
     
@@ -275,7 +273,7 @@ class GameBoardVC: UIViewController {
                     let xTmp = cell1.x
                     let yTmp = cell1.y
                     let imageTmp = cell1.cellImage?.image
-                    let cell2 = cellGameArray[random(max: col)][random(max: row)]
+                    let cell2 = cellGameArray[random(max: colNo)][random(max: rowNo)]
                     cell1.x = cell2.x
                     cell1.y = cell2.y
                     cell1.cellImage?.image = cell2.cellImage?.image
@@ -293,15 +291,15 @@ class GameBoardVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    // start timer
+    // start timer: 0.1s
     func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(GameBoardVC.updateTime), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(GameBoardVC.updateTime), userInfo: nil, repeats: true)
     }
     
-    // update time : add 1
+    // update time : add 0.1s
     func updateTime() {
-        seconds += 1
-        timeLabel.text = "\(seconds)"
+        seconds += 0.1
+        timerBar.progress = seconds.divided(by: timeLimit)
     }
     
     // stop timer

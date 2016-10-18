@@ -26,9 +26,8 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
     var catalogueIDList = [Int64]()
     var selectedCatalogue: Catalogue!
     
-//    let moc = 
-    
     override func viewDidLoad() {
+        super.viewDidLoad()
         do {
             let fetchRequest: NSFetchRequest<Catalogue> = Catalogue.fetchRequest()
             let sort = NSSortDescriptor(key: "name", ascending: true)
@@ -37,18 +36,9 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
         } catch {
             fatalError("Failed")
         }
-        
-        create()
-//        playMode.get
-        super.viewDidLoad()
-        // TODO load from database
-        catalogueNameList = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"]
-        catalogueIDList = [1,2, 3, 4, 5, 6]
-        
-        
+//        create()
 //        playMode.setImage(UIImage(named: "img1"), for: .normal)
 //        playMode.setImage(UIImage(named: "img2"), for: .selected)
-
         // Do any additional setup after loading the view.
     }
 
