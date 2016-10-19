@@ -28,23 +28,7 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        do {
-            let fetchRequest: NSFetchRequest<Catalogue> = Catalogue.fetchRequest()
-            let sort = NSSortDescriptor(key: "name", ascending: true)
-            fetchRequest.sortDescriptors = [sort]
-            catalogueList = try context.fetch(fetchRequest)
-        } catch {
-            fatalError("Failed")
-        }
-//        create()
-//        playMode.setImage(UIImage(named: "img1"), for: .normal)
-//        playMode.setImage(UIImage(named: "img2"), for: .selected)
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        loatCatalogueFromDB()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -56,8 +40,11 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        selectedCatalogue = catalogueList[row]
         return catalogueList[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCatalogue = catalogueList[row]
     }
     
     @IBAction func playModePressed(_ sender: AnyObject) {
@@ -83,6 +70,7 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? GameBoardVC {
             destination.catalogue = selectedCatalogue
+            print(selectedCatalogue.name)
             destination.playMode = playMode.tag
             destination.playLevel = playLevel.tag
         }
@@ -93,35 +81,52 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
         performSegue(withIdentifier: "menu2ToGameBoardVC", sender: self)
     }
     
-    func attemptFetchCatalogue() {
-//        let fetchRequest: NSFetchRequest<Catalogue> = Catalogue.fetchRequest()
-//        let sort = NSSortDescriptor(key: "name", ascending: true)
-//        fetchRequest.sortDescriptors = [sort]
-//        
-//        let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-//        do {
-//            try self.controller.performFetch()
-//        } catch {
-//            let error = error as NSError
-//            print("\(error)")
-//        }
+    func loatCatalogueFromDB() {
+        do {
+            let fetchRequest: NSFetchRequest<Catalogue> = Catalogue.fetchRequest()
+            let sort = NSSortDescriptor(key: "name", ascending: true)
+            fetchRequest.sortDescriptors = [sort]
+            catalogueList = try context.fetch(fetchRequest)
+            selectedCatalogue = catalogueList.first
+            
+            // initial top highest point
+//            for cata in catalogueList {
+//                for i in 1...3 {
+//                    let pointInfo = PointInfo(context: context)
+//                    pointInfo.modeType = 0 // Tính giờ
+//                    pointInfo.toCatalogue = cata
+//                    pointInfo.topPlace = Int64(i)
+//                    pointInfo.totalPoint = 0
+//                }
+//                for i in 1...3 {
+//                    let pointInfo = PointInfo(context: context)
+//                    pointInfo.modeType = 1 // Không tính giờ
+//                    pointInfo.toCatalogue = cata
+//                    pointInfo.topPlace = Int64(i)
+//                    pointInfo.totalPoint = 0
+//                }
+//            }
+//            try context.save()
+        } catch {
+            fatalError("Failed")
+        }
     }
     
     func create() {
         do{
-//            let catalogue = Catalogue(context: context)
-//            catalogue.name = "Động vật"
-//            catalogue.details = "Động vật"
-//            catalogue.id = 1
-//            for i in 1...10 {
-//                let image = Image(context: context)
-//                image.fileName = "img\(i)"
-//                image.name = "Image \(i)"
-//                image.id = Int64(i)
-//                image.catalogueID = 1
-//                catalogue.addToToImage(image)
-//            }
-//            try context.save()
+            let catalogue = Catalogue(context: context)
+            catalogue.name = "Đồ vật"
+            catalogue.details = "Đồ vật"
+            catalogue.id = 3
+            for i in 1...4 {
+                let image = Image(context: context)
+                image.fileName = "object\(i)"
+                image.name = "Đồ vật \(i)"
+                image.id = Int64(i)
+                image.catalogueID = 3
+                catalogue.addToToImage(image)
+            }
+            try context.save()
             let catalogueList = try context.fetch(Catalogue.fetchRequest())
             print(catalogueList.count)
             for i in 0..<catalogueList.count {
@@ -131,8 +136,6 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
                     print(im.name!)
                 }
             }
-//            try context.save()
-//            print(catalogueList.count)
             
         } catch {
             fatalError("Failed")
