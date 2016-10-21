@@ -256,30 +256,35 @@ class GameBoardVC: UIViewController {
         if recognizer.state == .began {
             disableOtherCells()
             if isFirstTap == true {
-                startTimer()
+                if playMode == 0 {
+                    startTimer()
+                }
                 isFirstTap = false
             }
             firstPoint = recognizer.view?.frame.origin
             boardGame.bringSubview(toFront: recognizer.view!)
         }
-        //        let translation = recognizer.translation(in: recognizer)
-        recognizer.view?.center = recognizer.location(in: self.boardGame)
         
-        // check if go out game board view
-        if recognizer.location(in: boardGame).x < 0 {
-            recognizer.view?.center.x = 0
-        }
-        
-        if recognizer.location(in: boardGame).x > boardGame.frame.width {
-            recognizer.view?.center.x = boardGame.frame.width
-        }
-        
-        if recognizer.location(in: boardGame).y < 0 {
-            recognizer.view?.center.y = 0
-        }
-        
-        if recognizer.location(in: boardGame).y > boardGame.frame.height {
-            recognizer.view?.center.y = boardGame.frame.height
+        if recognizer.state == .changed {
+            //        let translation = recognizer.translation(in: recognizer)
+            recognizer.view?.center = recognizer.location(in: self.boardGame)
+            
+            // check if go out game board view
+            if recognizer.location(in: boardGame).x < 0 {
+                recognizer.view?.center.x = 0
+            }
+            
+            if recognizer.location(in: boardGame).x > boardGame.frame.width {
+                recognizer.view?.center.x = boardGame.frame.width
+            }
+            
+            if recognizer.location(in: boardGame).y < 0 {
+                recognizer.view?.center.y = 0
+            }
+            
+            if recognizer.location(in: boardGame).y > boardGame.frame.height {
+                recognizer.view?.center.y = boardGame.frame.height
+            }
         }
         
         if recognizer.state == .ended {
@@ -346,6 +351,7 @@ class GameBoardVC: UIViewController {
         // end - timer progress bar
         imageView.image = image
         boardGame.frame = CGRect(x: 10, y: UIScreen.main.bounds.height/2 - 30, width: UIScreen.main.bounds.width-20 , height: (UIScreen.main.bounds.height)/2)
+        boardGame.isExclusiveTouch = true
         // remeove old tiles from board
         for view in boardGame.subviews {
             view.removeFromSuperview()
@@ -392,6 +398,7 @@ class GameBoardVC: UIViewController {
                 tmpImageView.y = j
                 tmpImageView.tobeX = i
                 tmpImageView.tobeY = j
+                tmpImageView.isExclusiveTouch = true
                 cellGameArray[i-1][j-1] = tmpImageView
                 boardGame.addSubview(tmpImageView)
             }
@@ -404,6 +411,7 @@ class GameBoardVC: UIViewController {
                 let tmpImage = cellGameArray[j][i]
                 tmpImage.isUserInteractionEnabled = true
                 let pan = UIPanGestureRecognizer(target: self, action: #selector(self.panDetected))
+                pan.maximumNumberOfTouches = 1
                 tmpImage.addGestureRecognizer(singleTap)
                 tmpImage.addGestureRecognizer(pan)
             }
