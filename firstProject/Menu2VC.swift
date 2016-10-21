@@ -91,6 +91,11 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
             let sort = NSSortDescriptor(key: "name", ascending: true)
             fetchRequest.sortDescriptors = [sort]
             catalogueList = try context.fetch(fetchRequest)
+            // check if catalogue is empty - the first time launched
+            if catalogueList.isEmpty {
+                // initial database
+                create()
+            }
             selectedCatalogue = catalogueList.first
         } catch {
             fatalError("Failed")
@@ -100,46 +105,69 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
     // initial data
     func create() {
         do{
-            let catalogue = Catalogue(context: context)
-            catalogue.name = "Đồ vật"
-            catalogue.details = "Đồ vật"
-            catalogue.id = 3
+            let catalogueAnimal = Catalogue(context: context)
+            // ------------------------
+            catalogueAnimal.name = "Con vật"
+            catalogueAnimal.details = "Con vật"
+            catalogueAnimal.id = 1
+            for i in 1...10 {
+                let image = Image(context: context)
+                image.fileName = "animal\(i)"
+                image.name = "Con vật \(i)"
+                image.id = Int64(i)
+                image.catalogueID = 1
+                catalogueAnimal.addToToImage(image)
+            }
+            // ----------------------
+            let catalogueFlower = Catalogue(context: context)
+            catalogueFlower.name = "Hoa"
+            catalogueFlower.details = "Hoa"
+            catalogueFlower.id = 2
+            for i in 1...4 {
+                let image = Image(context: context)
+                image.fileName = "flower\(i)"
+                image.name = "Hoa \(i)"
+                image.id = Int64(i)
+                image.catalogueID = 2
+                catalogueFlower.addToToImage(image)
+            }
+            
+            // -----------------------
+            let catalogueObject = Catalogue(context: context)
+            catalogueObject.name = "Đồ vật"
+            catalogueObject.details = "Đồ vật"
+            catalogueObject.id = 3
             for i in 1...4 {
                 let image = Image(context: context)
                 image.fileName = "object\(i)"
                 image.name = "Đồ vật \(i)"
                 image.id = Int64(i)
                 image.catalogueID = 3
-                catalogue.addToToImage(image)
+                catalogueObject.addToToImage(image)
             }
             try context.save()
-            let catalogueList = try context.fetch(Catalogue.fetchRequest())
-            print(catalogueList.count)
-            for i in 0..<catalogueList.count {
-                let cata = catalogueList[i] as! Catalogue
-                for img in cata.toImage! {
-                    let im = img as! Image
-                    print(im.name!)
+            let sort = NSSortDescriptor(key: "name", ascending: true)
+            let fetchRequest: NSFetchRequest<Catalogue> = Catalogue.fetchRequest()
+            fetchRequest.sortDescriptors = [sort]
+            catalogueList = try context.fetch(Catalogue.fetchRequest())
+            // initial top highest point
+            for cata in catalogueList {
+                for i in 1...3 {
+                    let pointInfo = PointInfo(context: context)
+                    pointInfo.modeType = 0 // Tính giờ
+                    pointInfo.toCatalogue = cata
+                    pointInfo.topPlace = Int64(i)
+                    pointInfo.totalPoint = 0
+                }
+                for i in 1...3 {
+                    let pointInfo = PointInfo(context: context)
+                    pointInfo.modeType = 1 // Không tính giờ
+                    pointInfo.toCatalogue = cata
+                    pointInfo.topPlace = Int64(i)
+                    pointInfo.totalPoint = 0
                 }
             }
-            // initial top highest point
-            //            for cata in catalogueList {
-            //                for i in 1...3 {
-            //                    let pointInfo = PointInfo(context: context)
-            //                    pointInfo.modeType = 0 // Tính giờ
-            //                    pointInfo.toCatalogue = cata
-            //                    pointInfo.topPlace = Int64(i)
-            //                    pointInfo.totalPoint = 0
-            //                }
-            //                for i in 1...3 {
-            //                    let pointInfo = PointInfo(context: context)
-            //                    pointInfo.modeType = 1 // Không tính giờ
-            //                    pointInfo.toCatalogue = cata
-            //                    pointInfo.topPlace = Int64(i)
-            //                    pointInfo.totalPoint = 0
-            //                }
-            //            }
-            //            try context.save()
+            try context.save()
             
         } catch {
             fatalError("Failed")

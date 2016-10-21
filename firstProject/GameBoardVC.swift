@@ -231,10 +231,27 @@ class GameBoardVC: UIViewController {
         return true
     }
     
+    func disableOtherCells() {
+        for i in 0...(colNo - 1) {
+            for j in 0...(rowNo - 1) {
+                cellGameArray[i][j].isUserInteractionEnabled = false
+            }
+        }
+    }
+    
+    func enableAllCells() {
+        for i in 0...(colNo - 1) {
+            for j in 0...(rowNo - 1) {
+                cellGameArray[i][j].isUserInteractionEnabled = true
+            }
+        }
+    }
+    
     var firstPoint: CGPoint!
     func panDetected(recognizer: UIPanGestureRecognizer) {
-//        let translation  = recognizer.translation(in: recognizer.view)
+        // let translation  = recognizer.translation(in: recognizer.view)
         if recognizer.state == .began {
+            disableOtherCells()
             if isFirstTap == true {
                 startTimer()
                 isFirstTap = false
@@ -308,6 +325,15 @@ class GameBoardVC: UIViewController {
                     updateHighScore()
                 }
             }
+            enableAllCells()
+        }
+        
+        if recognizer.state == .failed {
+            enableAllCells()
+        }
+        
+        if recognizer.state == .cancelled {
+            enableAllCells()
         }
         self.view.setNeedsDisplay()
     }
