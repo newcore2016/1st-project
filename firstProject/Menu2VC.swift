@@ -47,6 +47,7 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
         selectedCatalogue = catalogueList[row]
     }
     
+    // play mode button pressed
     @IBAction func playModePressed(_ sender: AnyObject) {
         if playMode.tag == 0 {
             playMode.tag = 1
@@ -57,6 +58,7 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
         }
     }
     
+    // play level button pressed
     @IBAction func playLevelPressed(_ sender: AnyObject) {
         if playLevel.tag == 0 {
             playLevel.tag = 1
@@ -67,6 +69,7 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
         }
     }
     
+    // prepare for perform segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? GameBoardVC {
             destination.catalogue = selectedCatalogue
@@ -76,11 +79,12 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
         }
     }
     
-
+    // play button pressed
     @IBAction func playBtnPressed(_ sender: AnyObject) {
         performSegue(withIdentifier: "menu2ToGameBoardVC", sender: self)
     }
     
+    // load list of catalogue from database
     func loatCatalogueFromDB() {
         do {
             let fetchRequest: NSFetchRequest<Catalogue> = Catalogue.fetchRequest()
@@ -88,30 +92,12 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
             fetchRequest.sortDescriptors = [sort]
             catalogueList = try context.fetch(fetchRequest)
             selectedCatalogue = catalogueList.first
-            
-            // initial top highest point
-//            for cata in catalogueList {
-//                for i in 1...3 {
-//                    let pointInfo = PointInfo(context: context)
-//                    pointInfo.modeType = 0 // Tính giờ
-//                    pointInfo.toCatalogue = cata
-//                    pointInfo.topPlace = Int64(i)
-//                    pointInfo.totalPoint = 0
-//                }
-//                for i in 1...3 {
-//                    let pointInfo = PointInfo(context: context)
-//                    pointInfo.modeType = 1 // Không tính giờ
-//                    pointInfo.toCatalogue = cata
-//                    pointInfo.topPlace = Int64(i)
-//                    pointInfo.totalPoint = 0
-//                }
-//            }
-//            try context.save()
         } catch {
             fatalError("Failed")
         }
     }
     
+    // initial data
     func create() {
         do{
             let catalogue = Catalogue(context: context)
@@ -136,10 +122,29 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
                     print(im.name!)
                 }
             }
+            // initial top highest point
+            //            for cata in catalogueList {
+            //                for i in 1...3 {
+            //                    let pointInfo = PointInfo(context: context)
+            //                    pointInfo.modeType = 0 // Tính giờ
+            //                    pointInfo.toCatalogue = cata
+            //                    pointInfo.topPlace = Int64(i)
+            //                    pointInfo.totalPoint = 0
+            //                }
+            //                for i in 1...3 {
+            //                    let pointInfo = PointInfo(context: context)
+            //                    pointInfo.modeType = 1 // Không tính giờ
+            //                    pointInfo.toCatalogue = cata
+            //                    pointInfo.topPlace = Int64(i)
+            //                    pointInfo.totalPoint = 0
+            //                }
+            //            }
+            //            try context.save()
             
         } catch {
             fatalError("Failed")
         }
+        
         
     }
 

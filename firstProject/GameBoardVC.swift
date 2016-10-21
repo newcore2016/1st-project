@@ -61,6 +61,7 @@ class GameBoardVC: UIViewController {
     // Sinning sound
     var winningPath: String!
     var winningURL: URL!
+    var gameOverMenu: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +71,11 @@ class GameBoardVC: UIViewController {
         // Sinning sound
         winningPath = Bundle.main.path(forResource: "won", ofType: "wav")
         winningURL = URL(fileURLWithPath: winningPath!)
+        createGame()
+        
+    }
+    
+    func createGame() {
         // Easy level
         if playLevel == 0 {
             colNo = 2
@@ -80,10 +86,10 @@ class GameBoardVC: UIViewController {
             rowNo = 4
         }
         // ------New feature: Random photo from list-----------------
-        // load image list TODO
+        // load image list
         getImageListFromCatalogue()
         let randomIndex = random(max: unsolvedImageList.count)
-        doingImage = unsolvedImageList.remove(at: randomIndex) 
+        doingImage = unsolvedImageList.remove(at: randomIndex)
         image = UIImage(named: doingImage.fileName!)!
         // ----------------------------------------------------------
         self.boardGame.isUserInteractionEnabled = true
@@ -114,8 +120,6 @@ class GameBoardVC: UIViewController {
             print(err.debugDescription)
         }
         playWinningSound() // FIXME change to welcome sound
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     // play switch cells sound
@@ -204,8 +208,6 @@ class GameBoardVC: UIViewController {
         if y != 0 && floorf(yFloat) == yFloat {
             y = y - 1
         }
-        print(x)
-        print(y)
         return cellGameArray[x][y]
     }
     
@@ -238,9 +240,7 @@ class GameBoardVC: UIViewController {
                 isFirstTap = false
             }
             firstPoint = recognizer.view?.frame.origin
-//            recognizer.view?.layer.zPosition = 1
             boardGame.bringSubview(toFront: recognizer.view!)
-            print(firstPoint)
         }
         //        let translation = recognizer.translation(in: recognizer)
         recognizer.view?.center = recognizer.location(in: self.boardGame)
@@ -263,59 +263,45 @@ class GameBoardVC: UIViewController {
         }
         
         if recognizer.state == .ended {
-//            // check if go out game board view
-//            if recognizer.location(in: boardGame).x < 0 {
-//                recognizer.view?.center.x = 0
-//            }
-//            
-//            if recognizer.location(in: boardGame).x > boardGame.frame.width {
-//                recognizer.view?.center.x = boardGame.frame.width
-//            }
-//            
-//            if recognizer.location(in: boardGame).y < 0 {
-//                recognizer.view?.center.y = 0
-//            }
-//            
-//            if recognizer.location(in: boardGame).y > boardGame.frame.height {
-//                recognizer.view?.center.y = boardGame.frame.height
-//            }
             let lastPoit = recognizer.view?.center
-//            let x:Int = Int((recognizer.view?.center.x)! / (boardGame.frame.width / CGFloat(colNo)))
-//            let y:Int = Int((recognizer.view?.center.y)! / (boardGame.frame.height / CGFloat(rowNo)))
-//            recognizer.view?.frame.origin.x = CGFloat(x) * (boardGame.frame.width / CGFloat(colNo))
-//            recognizer.view?.frame.origin.y = CGFloat(y) * (boardGame.frame.height / CGFloat(rowNo))
-//            newCell.cellImage?.frame.origin = findPoint(x: newCell.x!, y: newCell.y!)
-            print(lastPoit!)
             recognizer.view?.frame.origin = firstPoint
             firstPoint = recognizer.view?.center
             firstCell = findCell(point: firstPoint)
             newCell = findCell(point: lastPoit!)
-//            firstCell.cellImage?.frame.origin = findPoint(x: firstCell.x!, y: firstCell.y!)
-//            recognizer.view?.frame.origin = firstPoint // restore first cell
             let xTmp = newCell.x
             let yTmp = newCell.y
             let imageTmp = newCell.image
             newCell.x = firstCell.x
             newCell.y = firstCell.y
             newCell.image = firstCell.image
-//            newCell.cellImage?.frame.origin = CGPoint(x: boardGame.frame.width / CGFloat(colNo) * CGFloat(newCell.x! - 1), y: boardGame.frame.height / CGFloat(rowNo) * CGFloat(newCell.y! - 1))
             firstCell.x = xTmp
             firstCell.y = yTmp
             firstCell.image = imageTmp
-//            firstCell.cellImage?.frame.origin = CGPoint(x: boardGame.frame.width / CGFloat(colNo) * CGFloat(firstCell.x! - 1), y: boardGame.frame.height / CGFloat(rowNo) * CGFloat(firstCell.y! - 1))
             if(checkComplete() == true) {
                 solvedImageList.append(doingImage)
+                // check if there is any unsolved image
                 if unsolvedImageList.count != 0 {
                     let randomIndex = random(max: unsolvedImageList.count)
                     doingImage = unsolvedImageList.remove(at: randomIndex)
                     image = UIImage(named: doingImage.fileName!)!
-                    score = score + Int(Float(rowNo * colNo) * ((timeLimit - seconds)/timeLimit) * 10000)
-                    seconds = 0
+                    // update score
+                    // if play mode is Tính giờ
+                    if playMode == 0 {
+                        score = score + Int(Float(rowNo * colNo) * ((timeLimit - seconds)/timeLimit) * 10000)
+                        seconds = 0
+                    } else {
+                        score = score + 1
+                    }
                     scoreLabel.text = "\(score)"
                     makeGameBoard()
                     playWinningSound()
                 } else {
-                    score = score + Int(Float(rowNo * colNo) * ((timeLimit - seconds)/timeLimit) * 10000)
+                    // else, finish, update score
+                    if playMode == 0 {
+                        score = score + Int(Float(rowNo * colNo) * ((timeLimit - seconds)/timeLimit) * 10000)
+                    } else {
+                        score = score + 1
+                    }
                     scoreLabel.text = "\(score)"
                     playWinningSound()
                     stopTimer()
@@ -353,7 +339,6 @@ class GameBoardVC: UIViewController {
                 }
                 upLevelTimes = upLevelTimes + 1
             }
-
         } else {
             // Mode không tính giờ
             // if player has solved more than specified x pics, increase level
@@ -508,6 +493,57 @@ class GameBoardVC: UIViewController {
         for i in 0..<pointInfoList.count {
             print(pointInfoList[i].totalPoint)
         }
+        
+        // Menu game over
+        gameOverMenu = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        let gameOver = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 0, height: 0))
+        gameOver.backgroundColor = UIColor.red
+        
+        let replayBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 50))
+        replayBtn.titleLabel?.text = "Chơi lại"
+        replayBtn.setTitle("Chơi lại", for: .normal)
+        replayBtn.backgroundColor = UIColor.blue
+        replayBtn.addTarget(self, action: #selector(self.replay), for: .touchUpInside)
+        
+        
+        let stopBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 50))
+        stopBtn.setTitle("Thoát", for: .normal)
+        stopBtn.titleLabel?.text = "Thoát"
+        stopBtn.backgroundColor = UIColor.purple
+        stopBtn.addTarget(self, action: #selector(self.stop), for: .touchUpInside)
+        
+        gameOver.addSubview(replayBtn)
+        gameOver.addSubview(stopBtn)
+        gameOverMenu.addSubview(gameOver)
+        self.view.addSubview(gameOverMenu)
+        print(gameOver.center)
+        print(replayBtn.center)
+        
+        //Call whenever you want to show it and change the size to whatever size you want
+        UIView.animate(withDuration: 0.5, animations: {
+            gameOver.frame.size = CGSize(width: 300, height: 300)
+            gameOver.center = self.view.center
+            replayBtn.center = CGPoint(x: gameOver.frame.width/2 , y: gameOver.frame.height/2 - 30)
+            stopBtn.center = CGPoint(x: gameOver.frame.width/2 , y: gameOver.frame.height/2 + 30)
+        })
+    }
+    
+    func replay() {
+        seconds = 0
+        timerBar.progress = 0
+        isFirstTap = true
+        solvedImageList.removeAll()
+        upLevelTimes = 1
+        score = 0
+        gameOverMenu.removeFromSuperview()
+        boardGame.removeFromSuperview()
+        imageView.removeFromSuperview()
+        scoreLabel.removeFromSuperview()
+        createGame()
+    }
+    
+    func stop() {
+            self.dismiss(animated: true, completion: nil)
     }
 }
 
