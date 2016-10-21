@@ -153,7 +153,10 @@ class GameBoardVC: UIViewController {
     // cell tapped event
     func tapDetected(_ sender: UITapGestureRecognizer) {
         if isFirstTap == true {
-            startTimer()
+            // if mode is Tính giờ
+            if playMode == 0 {
+                startTimer()
+            }
             isFirstTap = false
         }
         let cell = findCell(point: sender.location(in: boardGame))

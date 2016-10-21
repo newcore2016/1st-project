@@ -29,6 +29,15 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
     override func viewDidLoad() {
         super.viewDidLoad()
         loatCatalogueFromDB()
+        print("View did load")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("View will appear")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print("View did appeared")
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
