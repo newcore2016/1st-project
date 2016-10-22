@@ -20,7 +20,7 @@ class GameBoardVC: UIViewController {
     
     var image =  UIImage() // current playing image
     
-    var boardGame = UIView()
+    var boardGame = UIImageView()
     
     var isSecondClick = false // check if there is second click
     
@@ -47,7 +47,7 @@ class GameBoardVC: UIViewController {
     var doingImage: Image!
     let numUpLevel = 3 // Number of solved images to increase level
     var upLevelTimes = 1 // Number of times of leveling
-    let timeLimit:Float = 10 // seconds
+    let timeLimit:Float = 30 // seconds
     var firstCell: CellGame!
     var newCell: CellGame!
     var scoreLabel = UILabel()
@@ -65,6 +65,9 @@ class GameBoardVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "grass")
+        self.view.insertSubview(backgroundImage, at: 0)
         // Switch sound
         switchPath = Bundle.main.path(forResource: "switch", ofType: "wav")
         switchURL = URL(fileURLWithPath: switchPath!)
@@ -93,7 +96,10 @@ class GameBoardVC: UIViewController {
         image = UIImage(named: doingImage.fileName!)!
         // ----------------------------------------------------------
         self.boardGame.isUserInteractionEnabled = true
-        self.view.backgroundColor = UIColor.cyan
+//        let backgroundImage = UIImageView(frame:boardGame.bounds)
+//        backgroundImage.image = UIImage(named: "wood")
+//        self.boardGame.insertSubview(backgroundImage, at: 0)
+        boardGame.image = UIImage(named: "wood")
         // reference original photo view
         imageView.frame = CGRect(x: UIScreen.main.bounds.width/4, y: 60 , width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height / 4)
         self.view.addSubview(imageView)
@@ -288,6 +294,7 @@ class GameBoardVC: UIViewController {
         }
         
         if recognizer.state == .ended {
+            playSwitchSound()
             let lastPoit = recognizer.view?.center
             recognizer.view?.frame.origin = firstPoint
             firstPoint = recognizer.view?.center
@@ -399,20 +406,28 @@ class GameBoardVC: UIViewController {
                 tmpImageView.tobeX = i
                 tmpImageView.tobeY = j
                 tmpImageView.isExclusiveTouch = true
+//                tmpImageView.layer.borderWidth = 1
+//                tmpImageView.layer.borderColor = UIColor.white.cgColor
+//                tmpImageView.layer.masksToBounds = true
+//                tmpImageView.layer.cornerRadius = 10.0
+//                tmpImageView.layer.shadowRadius = 10
+//                tmpImageView.alpha = 0.5
+//                tmpImageView.layer.op
+                
                 cellGameArray[i-1][j-1] = tmpImageView
                 boardGame.addSubview(tmpImageView)
             }
         }
         for j in 0..<cellGameArray.count {
             for i in 0..<self.cellGameArray[j].count {
-                let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.tapDetected(_:)))
-                singleTap.numberOfTapsRequired = 1
-                singleTap.numberOfTouchesRequired = 1
+//                let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.tapDetected(_:)))
+//                singleTap.numberOfTapsRequired = 1
+//                singleTap.numberOfTouchesRequired = 1
                 let tmpImage = cellGameArray[j][i]
                 tmpImage.isUserInteractionEnabled = true
                 let pan = UIPanGestureRecognizer(target: self, action: #selector(self.panDetected))
                 pan.maximumNumberOfTouches = 1
-                tmpImage.addGestureRecognizer(singleTap)
+//                tmpImage.addGestureRecognizer(singleTap)
                 tmpImage.addGestureRecognizer(pan)
             }
         }
