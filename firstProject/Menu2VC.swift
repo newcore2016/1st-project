@@ -28,6 +28,7 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //delAllData()
         loatCatalogueFromDB()
         print("View did load")
     }
@@ -46,14 +47,17 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return catalogueList.count
+        //return 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return catalogueList[row].name
+        //return ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedCatalogue = catalogueList[row]
+        
     }
     
     // play mode button pressed
@@ -101,6 +105,8 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
             fetchRequest.sortDescriptors = [sort]
             catalogueList = try context.fetch(fetchRequest)
             // check if catalogue is empty - the first time launched
+            //del all data
+            //delAllData()
             if catalogueList.isEmpty {
                 // initial database
                 create()
@@ -108,6 +114,51 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
             selectedCatalogue = catalogueList.first
         } catch {
             fatalError("Failed")
+        }
+    }
+    
+    //del all data
+    func delAllData(){
+        deleteAllCatalogData()
+        deleteAllImageData()
+        
+    }
+    
+    //delete catalog data
+    func deleteAllCatalogData(){
+        
+        let fetchRequest: NSFetchRequest<Catalogue> = Catalogue.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        do
+        {
+            let results = try context.fetch(fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+            for managedObject in results
+            {
+                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+                context.delete(managedObjectData)
+            }
+        } catch let error as NSError {
+            print("Detele all data catalog error : \(error) \(error.userInfo)")
+        }
+    }
+    
+    //delete image data
+    func deleteAllImageData(){
+        
+        let fetchRequest: NSFetchRequest<Image> = Image.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        do
+        {
+            let results = try context.fetch(fetchRequest as! NSFetchRequest<NSFetchRequestResult>)
+            for managedObject in results
+            {
+                let managedObjectData:NSManagedObject = managedObject as! NSManagedObject
+                context.delete(managedObjectData)
+            }
+        } catch let error as NSError {
+            print("Detele all data catalog error : \(error) \(error.userInfo)")
         }
     }
     
@@ -125,6 +176,7 @@ class Menu2VC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource,NS
                 image.name = "Con vật \(i)"
                 image.id = Int64(i)
                 image.catalogueID = 1
+                image.audio = "animal\(i)"
                 catalogueAnimal.addToToImage(image)
             }
             // ----------------------

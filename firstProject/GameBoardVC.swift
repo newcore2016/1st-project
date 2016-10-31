@@ -66,6 +66,15 @@ class GameBoardVC: UIViewController {
     //continue button
     var continueBtn: UIButton!
     
+    //continue button
+    var audioBtn: UIButton!
+    
+    //audio
+    var audioSound: AVAudioPlayer!
+    var audioPath: String!
+    var audioURL: URL!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,7 +167,26 @@ class GameBoardVC: UIViewController {
         winningSound.play()
     }
     
-    func playAudio(){
+    func playAudio(sender: UIButton){
+        let name: String! = sender.accessibilityHint
+        if name != nil {
+            audioPath = Bundle.main.path(forResource: name, ofType: "mp3")
+            audioURL = URL(fileURLWithPath: audioPath!)
+            do {
+                try audioSound = AVAudioPlayer(contentsOf: audioURL)
+            } catch(let err as NSError) {
+                print(err.debugDescription)
+            }
+            if audioSound.isPlaying {
+                audioSound.stop()
+                do {
+                    try audioSound = AVAudioPlayer(contentsOf: audioURL)
+                } catch(let err as NSError) {
+                    print(err.debugDescription)
+                }
+            }
+            audioSound.play()
+        }
         
     }
     
@@ -326,12 +354,17 @@ class GameBoardVC: UIViewController {
             firstCell.image = imageTmp
             if(checkComplete() == true) {
                 solvedImageList.append(doingImage)
+                //get image just solved
+                let doingImgName = doingImage.fileName!
+                
+                
                 // check if there is any unsolved image
                 if unsolvedImageList.count != 0 {
                     let randomIndex = random(max: unsolvedImageList.count)
                     doingImage = unsolvedImageList.remove(at: randomIndex)
                     
                     image = UIImage(named: doingImage.fileName!)!
+                    print(doingImage.fileName)
                     
                     // update score
                     // if play mode is Tính giờ
@@ -346,17 +379,34 @@ class GameBoardVC: UIViewController {
                         self.boardGame.center = self.view.center
                     })
                     
+                    //continue button
                     continueBtn = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 80, y: UIScreen.main.bounds.height/2 , width: 80, height: 40))
                     continueBtn.setTitle("Tiep tuc", for: .normal)
                     continueBtn.titleLabel?.text = "Tiep tuc"
                     continueBtn.backgroundColor = UIColor.purple
                     continueBtn.addTarget(self, action: #selector(self.continueGame), for: .touchUpInside)
                 
+                    //audio button
+                    audioBtn = UIButton(frame: CGRect(x: 0, y: UIScreen.main.bounds.height/2 , width: 80, height: 40))
+                    audioBtn.accessibilityHint = doingImgName
+                    //print(doingImage.fileName)
+                    
+                    //TODO : need to fix
+                    //audioBtn.accessibilityHint = doingImage.audio
+                    audioBtn.setTitle("Nghe", for: .normal)
+                    audioBtn.titleLabel?.text = "Nghe"
+                    audioBtn.backgroundColor = UIColor.purple
+                    
+                    print(doingImage.audio)
+                    print(doingImage.fileName)
+                    audioBtn.addTarget(self, action: #selector(self.playAudio), for: .touchUpInside)
+                    
                     stopTimer();
                     if playMode == 0 {
                         timerBar.removeFromSuperview()
                     }
                     self.view.addSubview(continueBtn)
+                    self.view.addSubview(audioBtn)
 
                     
                     boardGame.isUserInteractionEnabled = false
@@ -640,6 +690,7 @@ class GameBoardVC: UIViewController {
     
     func continueGame(){
         continueBtn.removeFromSuperview()
+        audioBtn.removeFromSuperview()
         if(playMode == 0){
             startTimer()
         }

@@ -21,5 +21,6 @@ extension Image {
     @NSManaged public var isUnlock: Bool
     @NSManaged public var name: String?
     @NSManaged public var toCatalogue: Catalogue?
+    @NSManaged public var audio: String?
 
 }
