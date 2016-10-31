@@ -63,6 +63,10 @@ class GameBoardVC: UIViewController {
     var winningURL: URL!
     var gameOverMenu: UIView!
     
+    //continue button
+    var continueBtn: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
@@ -154,6 +158,10 @@ class GameBoardVC: UIViewController {
         winningSound.play()
     }
     
+    func playAudio(){
+        
+    }
+    
 
     
     // cell tapped event
@@ -186,8 +194,15 @@ class GameBoardVC: UIViewController {
                         let randomIndex = random(max: unsolvedImageList.count)
                         doingImage = unsolvedImageList.remove(at: randomIndex)
                         image = UIImage(named: doingImage.fileName!)!
-                        makeGameBoard()
-                        playWinningSound()
+                        
+                        let gameResult = UIImageView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 0, height: 0))
+                        gameResult.backgroundColor = UIColor.yellow
+                        gameResult.image = image
+                        self.view.addSubview(gameResult)
+                        disableOtherCells();
+
+                        //makeGameBoard()
+                        //playWinningSound()
                     } else {
                         playWinningSound()
                         stopTimer()
@@ -315,7 +330,9 @@ class GameBoardVC: UIViewController {
                 if unsolvedImageList.count != 0 {
                     let randomIndex = random(max: unsolvedImageList.count)
                     doingImage = unsolvedImageList.remove(at: randomIndex)
+                    
                     image = UIImage(named: doingImage.fileName!)!
+                    
                     // update score
                     // if play mode is Tính giờ
                     if playMode == 0 {
@@ -325,8 +342,25 @@ class GameBoardVC: UIViewController {
                         score = score + 1
                     }
                     scoreLabel.text = "\(score)"
-                    makeGameBoard()
-                    playWinningSound()
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.boardGame.center = self.view.center
+                    })
+                    
+                    continueBtn = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 80, y: UIScreen.main.bounds.height/2 , width: 80, height: 40))
+                    continueBtn.setTitle("Tiep tuc", for: .normal)
+                    continueBtn.titleLabel?.text = "Tiep tuc"
+                    continueBtn.backgroundColor = UIColor.purple
+                    continueBtn.addTarget(self, action: #selector(self.continueGame), for: .touchUpInside)
+                
+                    stopTimer();
+                    if playMode == 0 {
+                        timerBar.removeFromSuperview()
+                    }
+                    self.view.addSubview(continueBtn)
+
+                    
+                    boardGame.isUserInteractionEnabled = false
+
                 } else {
                     // else, finish, update score
                     if playMode == 0 {
@@ -571,6 +605,12 @@ class GameBoardVC: UIViewController {
         print(gameOver.center)
         print(replayBtn.center)
         
+        //show game result
+        //let gameResult = UIView(frame: CGRect(x: self.view.center.x, y: self.view.center.y, width: 0, height: 0))
+        //gameResult.backgroundColor = UIColor.yellow
+        
+        
+        
         //Call whenever you want to show it and change the size to whatever size you want
         UIView.animate(withDuration: 0.5, animations: {
             gameOver.frame.size = CGSize(width: 300, height: 300)
@@ -596,6 +636,16 @@ class GameBoardVC: UIViewController {
     
     func stop() {
             self.dismiss(animated: true, completion: nil)
+    }
+    
+    func continueGame(){
+        continueBtn.removeFromSuperview()
+        if(playMode == 0){
+            startTimer()
+        }
+        boardGame.isUserInteractionEnabled = true
+        makeGameBoard()
+        playWinningSound()
     }
 }
 
