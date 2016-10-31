@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Catalogue" representedClassName=".Catalogue" syncable="YES">
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="toImage" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Image" inverseName="toCatalogue" inverseEntity="Image" syncable="YES"/>
+        <relationship name="toPointInfo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PointInfo" inverseName="toCatalogue" inverseEntity="PointInfo" syncable="YES"/>
+    </entity>
+    <entity name="GameInfo" representedClassName=".GameInfo" syncable="YES">
+        <attribute name="imageId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="level" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="mode" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="move" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="point" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="Image" representedClassName=".Image" syncable="YES">
+        <attribute name="audio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="catalogueID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fileName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isUnlock" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="toCatalogue" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Catalogue" inverseName="toImage" inverseEntity="Catalogue" syncable="YES"/>
+    </entity>
+    <entity name="LevelType" representedClassName=".LevelType" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timePerImage" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <entity name="ModeType" representedClassName=".ModeType" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="PointInfo" representedClassName=".PointInfo" syncable="YES">
+        <attribute name="modeType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="topPlace" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="totalPoint" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="toCatalogue" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Catalogue" inverseName="toPointInfo" inverseEntity="Catalogue" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Catalogue" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="GameInfo" positionX="151" positionY="180" width="128" height="133"/>
+        <element name="Image" positionX="153" positionY="18" width="128" height="150"/>
+        <element name="LevelType" positionX="81" positionY="162" width="128" height="90"/>
+        <element name="ModeType" positionX="90" positionY="171" width="128" height="75"/>
+        <element name="PointInfo" positionX="-2" positionY="180" width="128" height="105"/>
+    </elements>
+</model>

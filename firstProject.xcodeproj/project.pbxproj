@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1193EBE81DB4A79D00C7300A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1193EBE61DB4A79D00C7300A /* Model.xcdatamodeld */; };
+		11CE014F1DB2034000A4AE29 /* Menu2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CE014E1DB2034000A4AE29 /* Menu2VC.swift */; };
+		11E05B7D1DB77CBD00D1CB9E /* LevelType+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B711DB77CBD00D1CB9E /* LevelType+CoreDataClass.swift */; };
+		11E05B7E1DB77CBD00D1CB9E /* LevelType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B721DB77CBD00D1CB9E /* LevelType+CoreDataProperties.swift */; };
+		11E05B7F1DB77CBD00D1CB9E /* Catalogue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B731DB77CBD00D1CB9E /* Catalogue+CoreDataClass.swift */; };
+		11E05B801DB77CBD00D1CB9E /* Catalogue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B741DB77CBD00D1CB9E /* Catalogue+CoreDataProperties.swift */; };
+		11E05B811DB77CBD00D1CB9E /* GameInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B751DB77CBD00D1CB9E /* GameInfo+CoreDataClass.swift */; };
+		11E05B821DB77CBD00D1CB9E /* GameInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B761DB77CBD00D1CB9E /* GameInfo+CoreDataProperties.swift */; };
+		11E05B831DB77CBD00D1CB9E /* Image+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B771DB77CBD00D1CB9E /* Image+CoreDataClass.swift */; };
+		11E05B841DB77CBD00D1CB9E /* Image+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B781DB77CBD00D1CB9E /* Image+CoreDataProperties.swift */; };
+		11E05B851DB77CBD00D1CB9E /* ModeType+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B791DB77CBD00D1CB9E /* ModeType+CoreDataClass.swift */; };
+		11E05B861DB77CBD00D1CB9E /* ModeType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B7A1DB77CBD00D1CB9E /* ModeType+CoreDataProperties.swift */; };
+		11E05B871DB77CBD00D1CB9E /* PointInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B7B1DB77CBD00D1CB9E /* PointInfo+CoreDataClass.swift */; };
+		11E05B881DB77CBD00D1CB9E /* PointInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E05B7C1DB77CBD00D1CB9E /* PointInfo+CoreDataProperties.swift */; };
 		11EF8D3C1DAF4F5D00BA2643 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF8D3B1DAF4F5D00BA2643 /* AppDelegate.swift */; };
 		11EF8D3E1DAF4F5D00BA2643 /* GameBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EF8D3D1DAF4F5D00BA2643 /* GameBoardVC.swift */; };
 		11EF8D411DAF4F5D00BA2643 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EF8D3F1DAF4F5D00BA2643 /* Main.storyboard */; };
@@ -18,9 +32,33 @@
 		11F121A71DB08CA3007C67BA /* ListMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F121A61DB08CA3007C67BA /* ListMenuVC.swift */; };
 		11F121A91DB08F49007C67BA /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F121A81DB08F49007C67BA /* MenuCell.swift */; };
 		11F121AB1DB0ACD5007C67BA /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F121AA1DB0ACD5007C67BA /* ImageCell.swift */; };
+		847F113D1DC72C4E006253EC /* animal10.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F11331DC72C4E006253EC /* animal10.mp3 */; };
+		847F113E1DC72C4E006253EC /* animal9.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F11341DC72C4E006253EC /* animal9.mp3 */; };
+		847F113F1DC72C4E006253EC /* animal8.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F11351DC72C4E006253EC /* animal8.mp3 */; };
+		847F11401DC72C4E006253EC /* animal7.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F11361DC72C4E006253EC /* animal7.mp3 */; };
+		847F11411DC72C4E006253EC /* animal6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F11371DC72C4E006253EC /* animal6.mp3 */; };
+		847F11421DC72C4E006253EC /* animal4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F11381DC72C4E006253EC /* animal4.mp3 */; };
+		847F11431DC72C4E006253EC /* animal3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F11391DC72C4E006253EC /* animal3.mp3 */; };
+		847F11441DC72C4E006253EC /* animal2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F113A1DC72C4E006253EC /* animal2.mp3 */; };
+		847F11451DC72C4E006253EC /* animal1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F113B1DC72C4E006253EC /* animal1.mp3 */; };
+		847F11461DC72C4E006253EC /* animal5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 847F113C1DC72C4E006253EC /* animal5.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1193EBE71DB4A79D00C7300A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		11CE014E1DB2034000A4AE29 /* Menu2VC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu2VC.swift; sourceTree = "<group>"; };
+		11E05B711DB77CBD00D1CB9E /* LevelType+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LevelType+CoreDataClass.swift"; path = "firstProject/LevelType+CoreDataClass.swift"; sourceTree = "<group>"; };
+		11E05B721DB77CBD00D1CB9E /* LevelType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LevelType+CoreDataProperties.swift"; path = "firstProject/LevelType+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		11E05B731DB77CBD00D1CB9E /* Catalogue+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Catalogue+CoreDataClass.swift"; path = "firstProject/Catalogue+CoreDataClass.swift"; sourceTree = "<group>"; };
+		11E05B741DB77CBD00D1CB9E /* Catalogue+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Catalogue+CoreDataProperties.swift"; path = "firstProject/Catalogue+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		11E05B751DB77CBD00D1CB9E /* GameInfo+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GameInfo+CoreDataClass.swift"; path = "firstProject/GameInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		11E05B761DB77CBD00D1CB9E /* GameInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "GameInfo+CoreDataProperties.swift"; path = "firstProject/GameInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		11E05B771DB77CBD00D1CB9E /* Image+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Image+CoreDataClass.swift"; path = "firstProject/Image+CoreDataClass.swift"; sourceTree = "<group>"; };
+		11E05B781DB77CBD00D1CB9E /* Image+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Image+CoreDataProperties.swift"; path = "firstProject/Image+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		11E05B791DB77CBD00D1CB9E /* ModeType+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ModeType+CoreDataClass.swift"; path = "firstProject/ModeType+CoreDataClass.swift"; sourceTree = "<group>"; };
+		11E05B7A1DB77CBD00D1CB9E /* ModeType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ModeType+CoreDataProperties.swift"; path = "firstProject/ModeType+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		11E05B7B1DB77CBD00D1CB9E /* PointInfo+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PointInfo+CoreDataClass.swift"; path = "firstProject/PointInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		11E05B7C1DB77CBD00D1CB9E /* PointInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "PointInfo+CoreDataProperties.swift"; path = "firstProject/PointInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		11EF8D381DAF4F5D00BA2643 /* firstProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = firstProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EF8D3B1DAF4F5D00BA2643 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11EF8D3D1DAF4F5D00BA2643 /* GameBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardVC.swift; sourceTree = "<group>"; };
@@ -34,6 +72,16 @@
 		11F121A61DB08CA3007C67BA /* ListMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListMenuVC.swift; sourceTree = "<group>"; };
 		11F121A81DB08F49007C67BA /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		11F121AA1DB0ACD5007C67BA /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		847F11331DC72C4E006253EC /* animal10.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal10.mp3; sourceTree = "<group>"; };
+		847F11341DC72C4E006253EC /* animal9.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal9.mp3; sourceTree = "<group>"; };
+		847F11351DC72C4E006253EC /* animal8.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal8.mp3; sourceTree = "<group>"; };
+		847F11361DC72C4E006253EC /* animal7.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal7.mp3; sourceTree = "<group>"; };
+		847F11371DC72C4E006253EC /* animal6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal6.mp3; sourceTree = "<group>"; };
+		847F11381DC72C4E006253EC /* animal4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal4.mp3; sourceTree = "<group>"; };
+		847F11391DC72C4E006253EC /* animal3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal3.mp3; sourceTree = "<group>"; };
+		847F113A1DC72C4E006253EC /* animal2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal2.mp3; sourceTree = "<group>"; };
+		847F113B1DC72C4E006253EC /* animal1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal1.mp3; sourceTree = "<group>"; };
+		847F113C1DC72C4E006253EC /* animal5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = animal5.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,9 +95,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1193EBFE1DB4CD7200C7300A /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				11E05B721DB77CBD00D1CB9E /* LevelType+CoreDataProperties.swift */,
+				11E05B741DB77CBD00D1CB9E /* Catalogue+CoreDataProperties.swift */,
+				11E05B761DB77CBD00D1CB9E /* GameInfo+CoreDataProperties.swift */,
+				11E05B781DB77CBD00D1CB9E /* Image+CoreDataProperties.swift */,
+				11E05B7A1DB77CBD00D1CB9E /* ModeType+CoreDataProperties.swift */,
+				11E05B7C1DB77CBD00D1CB9E /* PointInfo+CoreDataProperties.swift */,
+			);
+			name = Generated;
+			sourceTree = "<group>";
+		};
+		1193EBFF1DB4CD8C00C7300A /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				11E05B711DB77CBD00D1CB9E /* LevelType+CoreDataClass.swift */,
+				11E05B731DB77CBD00D1CB9E /* Catalogue+CoreDataClass.swift */,
+				11E05B751DB77CBD00D1CB9E /* GameInfo+CoreDataClass.swift */,
+				11E05B771DB77CBD00D1CB9E /* Image+CoreDataClass.swift */,
+				11E05B791DB77CBD00D1CB9E /* ModeType+CoreDataClass.swift */,
+				11E05B7B1DB77CBD00D1CB9E /* PointInfo+CoreDataClass.swift */,
+			);
+			name = Entity;
+			sourceTree = "<group>";
+		};
 		11EF8D2F1DAF4F5D00BA2643 = {
 			isa = PBXGroup;
 			children = (
+				1193EBFF1DB4CD8C00C7300A /* Entity */,
+				1193EBFE1DB4CD7200C7300A /* Generated */,
 				11EF8D3A1DAF4F5D00BA2643 /* firstProject */,
 				11EF8D391DAF4F5D00BA2643 /* Products */,
 			);
@@ -68,6 +144,16 @@
 			children = (
 				11EF8D3B1DAF4F5D00BA2643 /* AppDelegate.swift */,
 				11EF8D4D1DAF507700BA2643 /* won.wav */,
+				847F11331DC72C4E006253EC /* animal10.mp3 */,
+				847F11341DC72C4E006253EC /* animal9.mp3 */,
+				847F11351DC72C4E006253EC /* animal8.mp3 */,
+				847F11361DC72C4E006253EC /* animal7.mp3 */,
+				847F11371DC72C4E006253EC /* animal6.mp3 */,
+				847F11381DC72C4E006253EC /* animal4.mp3 */,
+				847F11391DC72C4E006253EC /* animal3.mp3 */,
+				847F113A1DC72C4E006253EC /* animal2.mp3 */,
+				847F113B1DC72C4E006253EC /* animal1.mp3 */,
+				847F113C1DC72C4E006253EC /* animal5.mp3 */,
 				11EF8D4F1DAF507D00BA2643 /* switch.wav */,
 				11EF8D3D1DAF4F5D00BA2643 /* GameBoardVC.swift */,
 				11EF8D3F1DAF4F5D00BA2643 /* Main.storyboard */,
@@ -78,6 +164,8 @@
 				11F121A61DB08CA3007C67BA /* ListMenuVC.swift */,
 				11F121A81DB08F49007C67BA /* MenuCell.swift */,
 				11F121AA1DB0ACD5007C67BA /* ImageCell.swift */,
+				11CE014E1DB2034000A4AE29 /* Menu2VC.swift */,
+				1193EBE61DB4A79D00C7300A /* Model.xcdatamodeld */,
 			);
 			path = firstProject;
 			sourceTree = "<group>";
@@ -114,6 +202,7 @@
 				TargetAttributes = {
 					11EF8D371DAF4F5D00BA2643 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = E3N2LDL5Y6;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -142,10 +231,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				11EF8D501DAF507D00BA2643 /* switch.wav in Resources */,
+				847F11411DC72C4E006253EC /* animal6.mp3 in Resources */,
+				847F11461DC72C4E006253EC /* animal5.mp3 in Resources */,
+				847F11431DC72C4E006253EC /* animal3.mp3 in Resources */,
 				11EF8D461DAF4F5D00BA2643 /* LaunchScreen.storyboard in Resources */,
+				847F11401DC72C4E006253EC /* animal7.mp3 in Resources */,
+				847F11421DC72C4E006253EC /* animal4.mp3 in Resources */,
 				11EF8D431DAF4F5D00BA2643 /* Assets.xcassets in Resources */,
+				847F113F1DC72C4E006253EC /* animal8.mp3 in Resources */,
+				847F113D1DC72C4E006253EC /* animal10.mp3 in Resources */,
 				11EF8D411DAF4F5D00BA2643 /* Main.storyboard in Resources */,
+				847F11451DC72C4E006253EC /* animal1.mp3 in Resources */,
+				847F11441DC72C4E006253EC /* animal2.mp3 in Resources */,
 				11EF8D4E1DAF507700BA2643 /* won.wav in Resources */,
+				847F113E1DC72C4E006253EC /* animal9.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,10 +257,24 @@
 			files = (
 				11EF8D3E1DAF4F5D00BA2643 /* GameBoardVC.swift in Sources */,
 				11F121A91DB08F49007C67BA /* MenuCell.swift in Sources */,
+				11CE014F1DB2034000A4AE29 /* Menu2VC.swift in Sources */,
+				11E05B7F1DB77CBD00D1CB9E /* Catalogue+CoreDataClass.swift in Sources */,
+				11E05B811DB77CBD00D1CB9E /* GameInfo+CoreDataClass.swift in Sources */,
+				1193EBE81DB4A79D00C7300A /* Model.xcdatamodeld in Sources */,
+				11E05B851DB77CBD00D1CB9E /* ModeType+CoreDataClass.swift in Sources */,
 				11F121A71DB08CA3007C67BA /* ListMenuVC.swift in Sources */,
+				11E05B861DB77CBD00D1CB9E /* ModeType+CoreDataProperties.swift in Sources */,
+				11E05B841DB77CBD00D1CB9E /* Image+CoreDataProperties.swift in Sources */,
 				11EF8D3C1DAF4F5D00BA2643 /* AppDelegate.swift in Sources */,
 				11EF8D561DAF5C2700BA2643 /* MenuVC.swift in Sources */,
+				11E05B831DB77CBD00D1CB9E /* Image+CoreDataClass.swift in Sources */,
+				11E05B7D1DB77CBD00D1CB9E /* LevelType+CoreDataClass.swift in Sources */,
+				11E05B881DB77CBD00D1CB9E /* PointInfo+CoreDataProperties.swift in Sources */,
+				11E05B801DB77CBD00D1CB9E /* Catalogue+CoreDataProperties.swift in Sources */,
+				11E05B7E1DB77CBD00D1CB9E /* LevelType+CoreDataProperties.swift in Sources */,
 				11F121AB1DB0ACD5007C67BA /* ImageCell.swift in Sources */,
+				11E05B871DB77CBD00D1CB9E /* PointInfo+CoreDataClass.swift in Sources */,
+				11E05B821DB77CBD00D1CB9E /* GameInfo+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = E3N2LDL5Y6;
 				INFOPLIST_FILE = firstProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = efode.firstProject;
@@ -296,6 +410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = E3N2LDL5Y6;
 				INFOPLIST_FILE = firstProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = efode.firstProject;
@@ -326,6 +441,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1193EBE61DB4A79D00C7300A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1193EBE71DB4A79D00C7300A /* Model.xcdatamodel */,
+			);
+			currentVersion = 1193EBE71DB4A79D00C7300A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 11EF8D301DAF4F5D00BA2643 /* Project object */;
 }
